@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
+gem 'haml-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,7 +11,6 @@ group :production do
 end
 group :development, :test do
   gem 'sqlite3'
-  gem 'haml-rails'
 end
 
 
