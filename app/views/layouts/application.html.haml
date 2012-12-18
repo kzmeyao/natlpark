@@ -4,8 +4,20 @@
     %title Beautiful America
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1" }
     = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700"
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Open+Sans:400"
+    = stylesheet_link_tag    "http://fonts.googleapis.com/css?family=Merriweather:400"
     = javascript_include_tag "application"
     = csrf_meta_tags
-
+  %header
+    %div{ :id => "logo" }<
+      = succeed 'EAUTIFUL' do
+        %span{ :class => "big" }="B"
+      = succeed 'MERICA' do
+        %span{ :class => "big" }="A"
+      %br
+      %span{ :class => "sub-header"}
+        A SHOWCASE OF U.S. NATIONAL PARKS
+      %div{ :id => "header-nav" }
   %body
     = yield
