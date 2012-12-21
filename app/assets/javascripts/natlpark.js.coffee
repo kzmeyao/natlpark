@@ -5,4 +5,4 @@ window.Natlpark =
   Routers: {}
 
 $(document).ready ->
-  Natlpark.initialize()
+#  Natlpark.initialize()

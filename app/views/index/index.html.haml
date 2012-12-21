@@ -1,4 +1,4 @@
-%div{ :id => "map_canvas", :style => "width: 100%; height: 90%"}
+%div{ :id => "map_canvas", :style => "width: 100%; height: 100%"}
 %script{ :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCkeUA-XttGBfkvoWC6aGic50jUwc6mAwE&sensor=true"}
 %script
   function initialize() {
@@ -12,4 +12,4 @@
   };
   $(document).ready(function(){initialize()});
 %script
-  var parks = #{@parks.to_json.html_safe};
+  var parks = new Parks(#{@parks.to_json.html_safe});

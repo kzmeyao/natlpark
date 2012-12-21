@@ -10,16 +10,16 @@ span {
 
 header {
   width: 100%;
-  height: 10%;
   overflow: auto;
   box-shadow: 0px 1px 3px 0px #666;
-  position: relative;
+  background-color: #FFF;
+  position: absolute;
   z-index: 2;
   color: #666;
 }
 
 #logo {
-  padding: 1em 0em 0em 1.5em;
+  padding: 1em 0em 1em 1.5em;
   font-family: "Merriweather", serif;
   font-size: 1.25em;
   float: left;
@@ -44,6 +44,6 @@ body {
 }
 
 #map_canvas {
-  height: 90%;
+  height: 100%;
   width: 100%;
 }
