@@ -10,7 +10,7 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %header
-    %div{ :id => "logo" }<
+    %div{ :id => "logo" }
       = succeed 'EAUTIFUL' do
         %span{ :class => "big" }="B"
       = succeed 'MERICA' do
@@ -18,6 +18,8 @@
       %br
       %span{ :class => "sub-header"}
         A SHOWCASE OF U.S. NATIONAL PARKS
-      %div{ :id => "header-nav" }
+    %nav
+      %div{ :id => "search-button", :class => "nav-button" }
+        SEARCH PARKS
   %body
     = yield
