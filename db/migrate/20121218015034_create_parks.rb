@@ -6,7 +6,7 @@ class CreateParks < ActiveRecord::Migration
       t.float :lat
       t.float :lon
       t.text :description
-      t.datetime :date_formed
+      t.string :date_formed
 
       t.timestamps
     end

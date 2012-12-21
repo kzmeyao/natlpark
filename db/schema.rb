@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20121218015034) do
     t.float    "lat"
     t.float    "lon"
     t.text     "description"
-    t.datetime "date_formed"
+    t.string   "date_formed"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
