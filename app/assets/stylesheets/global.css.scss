@@ -10,7 +10,6 @@ span {
 
 header {
   width: 100%;
-  overflow: auto;
   box-shadow: 0px 1px 3px 0px #666;
   background-color: #FFF;
   position: absolute;
@@ -139,5 +138,26 @@ nav {
 @-moz-keyframes slideout {
   from { margin-top: 0%; }
   to { margin-top: -100%; }
+}
+
+@media only screen and (max-device-width: 480px) {
+
+  #logo {
+    padding: .5em 0 0 0;
+    font-family: "Merriweather", serif;
+    font-size: 1.25em;
+    float: none;
+    margin: auto;
+    text-align: center;
+  }
+
+  nav {
+    padding: .5em 0em 0em 0em;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: .9em;
+    text-align: center;
+    float: none;
+    margin: auto;
+  }
 }
 
