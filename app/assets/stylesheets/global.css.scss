@@ -92,21 +92,21 @@ nav {
 
 .slide-in {
   margin-top: 0%;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-name: slidein;
-  -moz-animation-duration: 1s;
+  -moz-animation-duration: .5s;
   -moz-animation-name: slidein;
-  -webkit-animation-duration: 1s;
+  -webkit-animation-duration: .5s;
   -webkit-animation-name: slidein;
 }
 
 .slide-out {
   margin-top: -100%;
-  animation-duration: 1s;
+  animation-duration: .5s;
   animation-name: slideout;
-  -moz-animation-duration: 1s;
+  -moz-animation-duration: .5s;
   -moz-animation-name: slideout;
-  -webkit-animation-duration: 1s;
+  -webkit-animation-duration: .5s;
   -webkit-animation-name: slideout;
 }
 
