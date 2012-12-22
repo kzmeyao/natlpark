@@ -1,4 +1,4 @@
-Park = Backbone.Model.extend({
+var Park = Backbone.Model.extend({
 
   initialize: function(model){
     this.name = model["name"];
