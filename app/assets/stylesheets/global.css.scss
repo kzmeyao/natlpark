@@ -175,10 +175,17 @@ nav {
 
 .state-list {
   display: block;
-  text-align: center;
+  text-align: left;
   float: left;
   padding: 20px;
   width: 200px;
+}
+
+.state {
+  text-align: right;
+  border-bottom: 1px solid #FFF;
+  font-size: 1.3em;
+  margin-bottom: .5em;
 }
 
 

@@ -21,6 +21,9 @@ var SearchIndex = Backbone.View.extend({
       this.$el.attr("class", "overlay slide-in");
       $('#search-button').text("BACK TO MAP");
       this.displayed = true;
+      var winW = window.innerWidth;
+      var tableW = Math.floor(winW/240) * 240;
+      $('#table-of-contents').css("width", tableW + "px");
       $('#table-of-contents').masonry({
         itemSelector : '.state-list'
       });
@@ -36,7 +39,7 @@ var SearchIndex = Backbone.View.extend({
     var states = _.uniq(NatlPark.Collections.Parks.pluck('state').sort());
     var toAppend = "";
     for( var i in states ){
-      toAppend += "<div class='state-list'>" + states[i] + "<ul class='state'>";
+      toAppend += "<div class='state-list'><div class='state'>" + states[i] + "</div><ul>";
       var stateParks = NatlPark.Collections.Parks.where({'state':states[i]});
       for( var j in stateParks ){
         toAppend += "<li>" + stateParks[j].name + "</li>";
