@@ -9,5 +9,6 @@ var NatlPark = {
     $('#search-button').click( function (){
       NatlPark.Views.SearchIndex.render();
     })
+    NatlPark.Views.MapGallery = new MapGallery();
   }
 }

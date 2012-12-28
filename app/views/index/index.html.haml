@@ -2,6 +2,7 @@
 %div{ :class => "overlay" }
 %script{ :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCkeUA-XttGBfkvoWC6aGic50jUwc6mAwE&sensor=true"}
 %script
+  var map;
   function initialize() {
   var mapOptions = {
   center: new google.maps.LatLng(36.5, -98.5),
@@ -9,7 +10,7 @@
   disableDefaultUI: true,
   mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+  map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
   };
   $(document).ready(function(){initialize()});
 %script
