@@ -19,12 +19,14 @@ var SearchIndex = Backbone.View.extend({
     if(!this.displayed){
       this.$el.css("display", "block");
       this.$el.attr("class", "overlay slide-in");
+      $('#search-button').text("BACK TO MAP");
       this.displayed = true;
       $('#table-of-contents').masonry({
         itemSelector : '.state-list'
       });
     } else {
       this.$el.attr("class", "overlay slide-out");
+      $('#search-button').text("SEARCH PARKS");
       this.displayed = false;
     }
   },
