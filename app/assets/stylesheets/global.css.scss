@@ -1,3 +1,13 @@
+ul, li {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+ol, ul {
+  list-style: none;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -74,17 +84,13 @@ nav {
   background: #FF5C5C;
 }
 
-.box {
-  width: 80%;
-  height: 80%;
-  background-color: #FFF;
-}
-
 .overlay {
+  color: #FFF;
   display: none;
   position: absolute;
   width: 100%;
   height: 100%;
+  overflow: auto;
   opacity: .75;
   z-index: 1;
   background-color: #000;
@@ -160,4 +166,22 @@ nav {
     margin: auto;
   }
 }
+
+#table-of-contents {
+  height: 80%;
+  width: 90%;
+  margin: 7em auto 0em auto;
+}
+
+.state-list {
+  display: block;
+  text-align: center;
+  float: left;
+  padding: 20px;
+  width: 200px;
+}
+
+
+
+
 
