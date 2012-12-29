@@ -42,7 +42,7 @@ var SearchIndex = Backbone.View.extend({
       toAppend += "<div class='state-list'><div class='state'>" + states[i] + "</div><ul>";
       var stateParks = NatlPark.Collections.Parks.where({'state':states[i]});
       for( var j in stateParks ){
-        toAppend += "<li onclick='NatlPark.Views.MapGallery.render(" + stateParks[j].id + ")'>" + stateParks[j].name + "</li>";
+        toAppend += "<li onclick='NatlPark.Views.MapView.moveCenter(" + stateParks[j].id + ")'>" + stateParks[j].name + "</li>";
       }
       toAppend += "</ul></div>";
     }
