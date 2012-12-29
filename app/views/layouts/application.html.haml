@@ -10,14 +10,15 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %header
-    %div{ :id => "logo" }
-      = succeed 'EAUTIFUL' do
-        %span{ :class => "big" }="B"
-      = succeed 'MERICA' do
-        %span{ :class => "big" }="A"
-      %br
-      %span{ :class => "sub-header"}
-        A SHOWCASE OF U.S. NATIONAL PARKS
+    %a{ :href => "/"}
+      %div{ :id => "logo" }
+        = succeed 'EAUTIFUL' do
+          %span{ :class => "big" }="B"
+        = succeed 'MERICA' do
+          %span{ :class => "big" }="A"
+        %br
+        %span{ :class => "sub-header"}
+          A SHOWCASE OF U.S. NATIONAL PARKS
     %nav
       %div{ :id => "search-button", :class => "nav-button" }
         SEARCH PARKS
