@@ -5,6 +5,7 @@ var NatlPark = {
   Routers: {},
   initialize: function(data){
     NatlPark.Collections.Parks = new Parks(data.parks);
+    NatlPark.Views.MapView = new MapView();
     NatlPark.Views.SearchIndex = new SearchIndex({el : $('.overlay')});
     $('#search-button').click( function (){
       NatlPark.Views.SearchIndex.render();
