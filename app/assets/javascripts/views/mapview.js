@@ -1,6 +1,7 @@
 var MapView = Backbone.View.extend({
 
-  map: false,
+  map: null,
+  markers: [],
 
   initialize: function(){
     _.bindAll(this, 'render');
@@ -20,7 +21,6 @@ var MapView = Backbone.View.extend({
   },
 
   placeMarkers: function(){
-
     var names = NatlPark.Collections.Parks.pluck('name');
     var lats = NatlPark.Collections.Parks.pluck('lat');
     var lons = NatlPark.Collections.Parks.pluck('lon');
@@ -30,9 +30,21 @@ var MapView = Backbone.View.extend({
       var marker = new google.maps.Marker({
         position: latlon,
         map: this.map,
-        title: names[i]
+        title: names[i],
+        draggable: false,
+        clickable: true,
+        animation: google.maps.Animation.DROP
       });
+      this.addMarkerClickBehavior(marker, latlon);
+      this.markers.push(marker);
     }
+  },
+
+  addMarkerClickBehavior: function(marker, pos){
+    google.maps.event.addListener(marker, 'click', function() {
+      this.map.setZoom(10);
+      this.map.setCenter(pos);
+    });
   },
 
   moveCenter: function(pid){
@@ -41,7 +53,7 @@ var MapView = Backbone.View.extend({
     var index = pid - 1;
     var park = NatlPark.Collections.Parks.at(index);
     var parkLoc = new google.maps.LatLng(park.lat, -park.lon);
-    NatlPark.Views.MapView.map.setCenter(parkLoc);
-    NatlPark.Views.MapView.map.setZoom(10);
+    this.map.setCenter(parkLoc);
+    this.map.setZoom(10);
   }
 })
