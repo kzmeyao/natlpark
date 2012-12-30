@@ -34,6 +34,9 @@ var MapView = Backbone.View.extend({
     var lons = NatlPark.Collections.Parks.pluck('lon');
 
     for( var i in lats ){
+      if(names[i] == "American Samoa"){
+        lats[i] = -lats[i];
+      }
       var latlon = new google.maps.LatLng(lats[i], -lons[i]);
       var marker = new google.maps.Marker({
         position: latlon,
