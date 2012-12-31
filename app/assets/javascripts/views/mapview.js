@@ -4,7 +4,10 @@ var MapView = Backbone.View.extend({
   markers: [],
   homezoom: 4,
   clickzoom: 9,
-  homelat: 39,
+  homelat: 37,
+  infowinsize: 30,
+  arrowoffset: false,
+  offset: 90,
 
   initialize: function(){
     _.bindAll(this, 'render');
@@ -12,6 +15,9 @@ var MapView = Backbone.View.extend({
       this.homezoom = 3;
       this.clickzoom = 7;
       this.homelat = 42;
+      this.infowinsize = 18;
+      this.offset = 0;
+      this.arrowoffset = true;
     }
     this.render();
   },
@@ -24,12 +30,14 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-    this.placeMarkers();
+    $.getScript("/assets/separate/infobox.js", function(){
+      NatlPark.Views.MapView.placeMarkers();
+    });
   },
 
   placeMarkers: function(){
     var names = NatlPark.Collections.Parks.pluck('name');
+    var descripts = NatlPark.Collections.Parks.pluck('description');
     var lats = NatlPark.Collections.Parks.pluck('lat');
     var lons = NatlPark.Collections.Parks.pluck('lon');
 
@@ -46,16 +54,37 @@ var MapView = Backbone.View.extend({
         clickable: true,
         animation: google.maps.Animation.DROP
       });
-      var adjlatlon = new google.maps.LatLng(lats[i] -.4, -lons[i]);
-      this.addMarkerClickBehavior(marker, adjlatlon, this.clickzoom);
+      var contentString = "<div class='info-title' data-arrowoffset='" + this.arrowoffset +
+        "'>&nbsp&nbsp&nbsp&nbsp&nbsp" + names[i].toUpperCase() +
+        "</div><div class='info-button'>ENTER SHOWCASE</div>" +
+        "<div class='info-content'>" + descripts[i] + "</div>";
+      var infowindow = new InfoBox({
+        content: contentString,
+        disableAutoPan: false,
+        maxWidth: 0,
+        pixelOffset: new google.maps.Size(-145 - this.offset, 20),
+        zIndex: null,
+        boxStyle: {
+          width: this.infowinsize + "em"
+        },
+        closeBoxMargin: "2px 2px 2px 2px",
+        closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+        infoBoxClearance: new google.maps.Size(1, 1),
+        isHidden: false,
+        pane: "floatPane",
+        enableEventPropagation: false
+      });
+      var adjlatlon = new google.maps.LatLng(lats[i], -lons[i]);
+      this.addMarkerClickBehavior(marker, adjlatlon, infowindow, this.clickzoom);
       this.markers.push(marker);
     }
   },
 
-  addMarkerClickBehavior: function(marker, pos, zoom){
+  addMarkerClickBehavior: function(marker, pos, infowindow, zoom){
     google.maps.event.addListener(marker, 'click', function() {
       this.map.setZoom(zoom);
       this.map.setCenter(pos);
+      infowindow.open(this.map, marker);
     });
   },
 
@@ -63,9 +92,6 @@ var MapView = Backbone.View.extend({
     //Close overlay first
     NatlPark.Views.SearchIndex.render();
     var index = pid - 1;
-    var park = NatlPark.Collections.Parks.at(index);
-    var parkLoc = new google.maps.LatLng(park.lat, -park.lon);
-    this.map.setCenter(parkLoc);
-    this.map.setZoom(this.clickzoom);
+    google.maps.event.trigger(this.markers[index], 'click');
   }
 })
