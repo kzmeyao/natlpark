@@ -30,7 +30,7 @@ var MapView = Backbone.View.extend({
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     this.map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-    $.getScript("/assets/separate/infobox.js", function(){
+    $.getScript("/infobox.js", function(){
       NatlPark.Views.MapView.placeMarkers();
     });
   },
