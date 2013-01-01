@@ -8,6 +8,6 @@ var NatlPark = {
     $('#search-button').click( function (){
       NatlPark.Views.SearchIndex.render();
     })
-    NatlPark.Views.Showcase = new Showcase({el : $('#overlay-bot')});
+    NatlPark.Views.Showcase = new Showcase({el : $('#overlay-bot'), isDev : data.isDev});
   }
 }
