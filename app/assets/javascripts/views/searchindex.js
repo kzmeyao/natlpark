@@ -3,7 +3,6 @@ var SearchIndex = Backbone.View.extend({
   displayed: false,
 
   initialize: function(parks){
-    _.bindAll(this, 'render', 'appendParksList');
     this.$el.html(
       "<div id='table-of-contents'>" + "</div>"
     )
@@ -18,7 +17,7 @@ var SearchIndex = Backbone.View.extend({
   render: function(){
     if(!this.displayed){
       this.$el.css("display", "block");
-      this.$el.attr("class", "overlay slide-in");
+      this.$el.attr("class", "slide-in");
       $('#search-button').text("BACK TO MAP");
       this.displayed = true;
       var winW = window.innerWidth;
@@ -28,7 +27,7 @@ var SearchIndex = Backbone.View.extend({
         itemSelector : '.state-list'
       });
     } else {
-      this.$el.attr("class", "overlay slide-out");
+      this.$el.attr("class", "slide-out");
       $('#search-button').text("SEARCH PARKS");
       this.displayed = false;
     }

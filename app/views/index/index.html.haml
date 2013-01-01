@@ -1,5 +1,7 @@
 %div{ :id => "map_canvas" }
-%div{ :class => "overlay" }
+%div{ :id => "overlay" }
+%div{ :id => "overlay-bot" }
+  %div{ :id => "glass" }
 %script{ :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCkeUA-XttGBfkvoWC6aGic50jUwc6mAwE&sensor=true"}
 %script
   NatlPark.initialize({parks : #{@parks.to_json.html_safe}});

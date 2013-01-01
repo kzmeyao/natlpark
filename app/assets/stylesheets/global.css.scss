@@ -23,7 +23,7 @@ header {
   box-shadow: 0px 1px 3px 0px #666;
   background-color: #FFF;
   position: absolute;
-  z-index: 2;
+  z-index: 3;
   color: #666;
 }
 
@@ -93,7 +93,7 @@ nav {
   background: #FF5C5C;
 }
 
-.overlay {
+#overlay {
   color: #FFF;
   display: none;
   position: absolute;
@@ -101,7 +101,7 @@ nav {
   height: 100%;
   overflow: auto;
   opacity: .75;
-  z-index: 1;
+  z-index: 2;
   background-color: #000;
 }
 
@@ -212,6 +212,10 @@ nav {
   font-family: "Open Sans", sans-serif;
 }
 
+.info-button:hover {
+  cursor: pointer;
+}
+
 .info-title::after {
   content: "";
   position: absolute;
@@ -264,4 +268,73 @@ nav {
     overflow: auto;
     height: 100px;
   }
+}
+
+#overlay-bot {
+  color: #666;
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#glass {
+  background-color: #FFF;
+  opacity: .4;
+  margin-top: 7em;
+  height: 100%;
+  width: 100%;
+  box-shadow: 0px -1px 3px 0px #000;
+}
+
+.slide-in-bot {
+  margin-top: 0%;
+  animation-duration: .5s;
+  animation-name: slidein-bot;
+  -moz-animation-duration: .5s;
+  -moz-animation-name: slidein-bot;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-name: slidein-bot;
+}
+
+.slide-out-bot {
+  margin-top: -100%;
+  animation-duration: .5s;
+  animation-name: slideout;
+  -moz-animation-duration: .5s;
+  -moz-animation-name: slideout;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-name: slideout;
+}
+
+@keyframes slidein-bot {
+  from { margin-top: 100%; }
+  to { margin-top: 0%; }
+}
+
+@-webkit-keyframes slidein-bot {
+  from { margin-top: 100%; }
+  to { margin-top: 0%; }
+}
+
+@-moz-keyframes slidein-bot {
+  from { margin-top: 100%; }
+  to { margin-top: 0%; }
+}
+
+@keyframes slideout {
+  from { margin-top: 0%; }
+  to { margin-top: -100%; }
+}
+
+@-webkit-keyframes slideout {
+  from { margin-top: 0%; }
+  to { margin-top: -100%; }
+}
+
+@-moz-keyframes slideout {
+  from { margin-top: 0%; }
+  to { margin-top: -100%; }
 }

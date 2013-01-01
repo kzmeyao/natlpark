@@ -2,22 +2,20 @@ var MapView = Backbone.View.extend({
 
   map: null,
   markers: [],
+  infoboxes: [],
   homezoom: 4,
   clickzoom: 9,
   homelat: 37,
   infowinsize: 30,
-  arrowoffset: false,
   offset: 90,
 
   initialize: function(){
-    _.bindAll(this, 'render');
     if(screen.width <= 480){
       this.homezoom = 3;
       this.clickzoom = 7;
       this.homelat = 42;
       this.infowinsize = 18;
       this.offset = 0;
-      this.arrowoffset = true;
     }
     this.render();
   },
@@ -54,9 +52,8 @@ var MapView = Backbone.View.extend({
         clickable: true,
         animation: google.maps.Animation.DROP
       });
-      var contentString = "<div class='info-title' data-arrowoffset='" + this.arrowoffset +
-        "'>&nbsp&nbsp&nbsp&nbsp&nbsp" + names[i].toUpperCase() +
-        "</div><div class='info-button'>ENTER SHOWCASE</div>" +
+      var contentString = "<div class='info-title'>&nbsp&nbsp&nbsp&nbsp&nbsp" + names[i].toUpperCase() +
+        "</div><div class='info-button' onclick=\"NatlPark.Views.MapView.openShowcase('" + names[i] + "'," + i + ")\">ENTER SHOWCASE</div>" +
         "<div class='info-content'>" + descripts[i] + "</div>";
       var infowindow = new InfoBox({
         content: contentString,
@@ -77,6 +74,7 @@ var MapView = Backbone.View.extend({
       var adjlatlon = new google.maps.LatLng(lats[i], -lons[i]);
       this.addMarkerClickBehavior(marker, adjlatlon, infowindow, this.clickzoom);
       this.markers.push(marker);
+      this.infoboxes.push(infowindow);
     }
   },
 
@@ -93,5 +91,10 @@ var MapView = Backbone.View.extend({
     NatlPark.Views.SearchIndex.render();
     var index = pid - 1;
     google.maps.event.trigger(this.markers[index], 'click');
+  },
+
+  openShowcase: function(name, pid){
+    NatlPark.Views.Showcase.render(name);
+    this.infoboxes[pid].close();
   }
 })
