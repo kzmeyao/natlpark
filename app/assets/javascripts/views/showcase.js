@@ -59,7 +59,11 @@ var Showcase = Backbone.View.extend({
         if(photo.height == null || photo.width == null){
           continue;
         }
-        var pichwratio = pich/picw;
+        if(screen.width <= 480){
+          var pichwratio = pich/(picw + 300);
+        } else {
+          var pichwratio = pich/picw;
+        }
         var phohwratio = photo.height/photo.width;
         var frac = 1;
         if(phohwratio > pichwratio){
@@ -68,27 +72,42 @@ var Showcase = Backbone.View.extend({
           }
         } else {
           if(photo.width > picw){
-            frac = photo.width/picw;
+            if(screen.width <= 480){
+              frac = photo.width/(picw + 300);
+            } else {
+              frac = photo.width/picw;
+            }
           }
         }
         var galwidth = "style= \"width : '" + (photo.width/frac + 300) + "px'\"";
         var vertcentering = "style= \"margin-top : " + (photo.height/(2*frac) - 125) + "px\"";
         var height = "height = '" + (photo.height/frac - 12) + "px'";
         var width = "width = '" + (photo.width/frac - 12) + "px'";
-        slides.push(
-          '<div class="gallery"' + galwidth +
-            '><div class="beach">' +
-              '<img src="' + photo.image_url + '" ' + height + ' ' + width +'/>' +
-            '</div>' +
-            '<div class="ocean">' +
-              '<div class="wave"' + vertcentering + '>' + photo.name +
-                '<br /><small>' + photo.user.fullname.toUpperCase() + '</small>' +
+
+        if(screen.width <= 480){
+          slides.push(
+            '<div class="gallery"' + galwidth +
+              '><div class="beach">' +
+                '<img src="' + photo.image_url + '" ' + height + ' ' + width +'/>' +
               '</div>' +
+            '</div>'
+          );
+        } else {
+          slides.push(
+            '<div class="gallery"' + galwidth +
+              '><div class="beach">' +
+                '<img src="' + photo.image_url + '" ' + height + ' ' + width +'/>' +
+              '</div>' +
+              '<div class="ocean">' +
+                '<div class="wave"' + vertcentering + '>' + photo.name +
+                  '<br /><small>' + photo.user.fullname.toUpperCase() + '</small>' +
+                '</div>' +
               '<a class="gallery-button" href="http://500px.com/photo/' + photo.id +'" target="_blank">VIEW ON 500PX</a>' +
               '<a class="gallery-button" onclick="NatlPark.Views.Showcase.destroyShow()">BACK TO MAP</a>' +
-            '</div>' +
-          '</div>'
-        );
+              '</div>' +
+            '</div>'
+          );
+        }
       }
 
       this.toggleNavigation();
