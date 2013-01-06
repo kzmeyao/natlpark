@@ -5,6 +5,8 @@ var Showcase = Backbone.View.extend({
   consumer_key: 'LmN5st3fctmDacYkERur14LtgW3kSM5Se604YWZM',
   sdk_key: '6499e89a8370e4640c99e7b37d72e8e910d976ba',
   term: '',
+  gallery: null,
+  isOn: false,
 
   initialize: function(data){
     this.el = data.el;
@@ -38,7 +40,7 @@ var Showcase = Backbone.View.extend({
   },
 
   fetchPics: function(){
-    _500px.api('/photos/search', { term: this.term, consumer_key: this.consumer_key, image_size: 4, rpp : 20, sort: 'votes_count'}, function (response) {
+    _500px.api('/photos/search', { term: this.term, consumer_key: this.consumer_key, image_size: 4, rpp : 50, sort: 'votes_count'}, function (response) {
       if (response.success) {
         NatlPark.Views.Showcase.initShow(response.data.photos);
       }
@@ -47,12 +49,12 @@ var Showcase = Backbone.View.extend({
 
   initShow: function(photos){
 
-    $('#wrapper').css('height', .75 * $('#glass').height() + "px");
+    this.isOn = true;
+    $('#wrapper').css('height', .8 * $('#glass').height() + "px");
     var pich = $('#wrapper').height();
     var picw = $('#wrapper').width() - 300;
-
+    var slides = [];
     if(photos.length > 0){
-      var slides = [];
       for(i in photos){
         var photo = photos[i];
         if(photo.height == null || photo.width == null){
@@ -71,6 +73,7 @@ var Showcase = Backbone.View.extend({
           }
         }
         var galwidth = "style= \"width : '" + (photo.width/frac + 300) + "px'\"";
+        var vertcentering = "style= \"margin-top : " + (photo.height/(2*frac) - 125) + "px\"";
         var height = "height = '" + (photo.height/frac - 12) + "px'";
         var width = "width = '" + (photo.width/frac - 12) + "px'";
         slides.push(
@@ -79,7 +82,7 @@ var Showcase = Backbone.View.extend({
               '<img src="' + photo.image_url + '" ' + height + ' ' + width +'/>' +
             '</div>' +
             '<div class="ocean">' +
-              '<div class="wave">' + photo.name +
+              '<div class="wave"' + vertcentering + '>' + photo.name +
                 '<br /><small>' + photo.user.fullname.toUpperCase() + '</small>' +
               '</div>' +
               '<a class="gallery-button">VIEW ON 500PX</a>' +
@@ -88,6 +91,8 @@ var Showcase = Backbone.View.extend({
           '</div>'
         );
       }
+
+      this.toggleNavigation();
 
       var	carousel,
         el,
@@ -98,6 +103,7 @@ var Showcase = Backbone.View.extend({
         numberOfPages: slides.length,
         hastyPageFlip: true
       });
+      this.gallery = carousel;
 
       // Load initial data
       for (i=0; i<3; i++) {
@@ -119,66 +125,37 @@ var Showcase = Backbone.View.extend({
           if (upcoming != carousel.masterPages[i].dataset.pageIndex) {
             el = carousel.masterPages[i].querySelector('span');
             el.innerHTML = slides[upcoming];
+            el.className = 'loading';
+            el.width = slides[upcoming].width;
+            el.height = slides[upcoming].height;
+
+            el = carousel.masterPages[i].querySelector('span');
           }
         }
+
+//        document.querySelector('#nav .selected').className = '';
+//        dots[carousel.pageIndex+1].className = 'selected';
       });
 
+      carousel.onMoveOut(function () {
+        carousel.masterPages[carousel.currentMasterPage].className = carousel.masterPages[carousel.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
+      });
 
+      carousel.onMoveIn(function () {
+        var className = carousel.masterPages[carousel.currentMasterPage].className;
+        /(^|\s)swipeview-active(\s|$)/.test(className) || (carousel.masterPages[carousel.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
+      });
 
-//      document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-//
-//      var	gallery,
-//        el,
-//        i,
-//        page,
-//        dots = document.querySelectorAll('#nav li');
-//
-//      gallery = new SwipeView('#wrapper', { numberOfPages: slides.length });
-//
-//      for (i=0; i<3; i++) {
-//        page = i==0 ? slides.length-1 : i-1;
-//        el = document.createElement('img');
-//        el.className = 'loading';
-//        el.src = slides[page].img;
-//        el.width = slides[page].width;
-//        el.height = slides[page].height;
-//        el.onload = function () { this.className = ''; }
-//        gallery.masterPages[i].appendChild(el);
-//        gallery.masterPages[i].appendChild(el)
-//      }
-//
-//      gallery.onFlip(function () {
-//        var el,
-//          upcoming,
-//          i;
-//
-//        for (i=0; i<3; i++) {
-//          upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
-//
-//          if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
-//            el = gallery.masterPages[i].querySelector('img');
-//            el.className = 'loading';
-//            el.src = slides[upcoming].img;
-//            el.width = slides[upcoming].width;
-//            el.height = slides[upcoming].height;
-//
-//            el = gallery.masterPages[i].querySelector('span');
-//            el.innerHTML = slides[upcoming].desc;
-//          }
-//        }
-//
-//        document.querySelector('#nav .selected').className = '';
-//        dots[gallery.pageIndex+1].className = 'selected';
-//      });
-//
-//      gallery.onMoveOut(function () {
-//        gallery.masterPages[gallery.currentMasterPage].className = gallery.masterPages[gallery.currentMasterPage].className.replace(/(^|\s)swipeview-active(\s|$)/, '');
-//      });
-//
-//      gallery.onMoveIn(function () {
-//        var className = gallery.masterPages[gallery.currentMasterPage].className;
-//        /(^|\s)swipeview-active(\s|$)/.test(className) || (gallery.masterPages[gallery.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
-//      });
+    }
+  },
+
+  toggleNavigation: function(){
+    if(this.isOn){
+      $('.prev').remove();
+      $('.next').remove();
+    } else {
+      $('#wrapper').append('<div class="nav prev" onclick="NatlPark.Views.Showcase.gallery.prev()"><</div>');
+      $('#wrapper').append('<div class="nav next" onclick="NatlPark.Views.Showcase.gallery.next()">></div>');
     }
   }
 })

@@ -3,19 +3,7 @@
 %div{ :id => "overlay-bot" }
   %div{ :id => "glass" }
     %div{ :id => "wrapper"}
-    %ul{ :id => "nav"}
-      %li{ :id => "prev", :onclick => "gallery.prev()" }='-'
-      %li{ :class => "selected", :onclick => "gallery.goToPage(0)"}
-      %li{ :onclick => "gallery.goToPage(1)"}
-      %li{ :onclick => "gallery.goToPage(2)"}
-      %li{ :onclick => "gallery.goToPage(3)"}
-      %li{ :onclick => "gallery.goToPage(4)"}
-      %li{ :onclick => "gallery.goToPage(5)"}
-      %li{ :onclick => "gallery.goToPage(6)"}
-      %li{ :onclick => "gallery.goToPage(7)"}
-      %li{ :onclick => "gallery.goToPage(8)"}
-      %li{ :onclick => "gallery.goToPage(9)"}
-      %li{ :id => "next", :onclick => "gallery.next()"}='+'
+    %div{ :id => "nav"}
 %script{ :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCkeUA-XttGBfkvoWC6aGic50jUwc6mAwE&sensor=true"}
 %script
   NatlPark.initialize({parks : #{@parks.to_json.html_safe}, isDev : #{Rails.env == 'development'}});
