@@ -36,6 +36,7 @@ var MapView = Backbone.View.extend({
   placeMarkers: function(){
     var names = NatlPark.Collections.Parks.pluck('name');
     var descripts = NatlPark.Collections.Parks.pluck('description');
+    var states = NatlPark.Collections.Parks.pluck('state');
     var lats = NatlPark.Collections.Parks.pluck('lat');
     var lons = NatlPark.Collections.Parks.pluck('lon');
 
@@ -53,7 +54,7 @@ var MapView = Backbone.View.extend({
         animation: google.maps.Animation.DROP
       });
       var contentString = "<div class='info-title'>&nbsp&nbsp&nbsp&nbsp&nbsp" + names[i].toUpperCase() +
-        "</div><div class='info-button' onclick=\"NatlPark.Views.MapView.openShowcase('" + names[i] + "'," + i + ")\">ENTER SHOWCASE</div>" +
+        "</div><div class='info-button' onclick=\"NatlPark.Views.MapView.openShowcase('" + names[i] + "'," + i + ",'" + states[i] + "')\">ENTER SHOWCASE</div>" +
         "<div class='info-content'>" + descripts[i] + "</div>";
       var infowindow = new InfoBox({
         content: contentString,
@@ -93,8 +94,8 @@ var MapView = Backbone.View.extend({
     google.maps.event.trigger(this.markers[index], 'click');
   },
 
-  openShowcase: function(name, pid){
-    NatlPark.Views.Showcase.render(name);
+  openShowcase: function(name, pid, state){
+    NatlPark.Views.Showcase.render(name, state);
     this.infoboxes[pid].close();
   }
 })
