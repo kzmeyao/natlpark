@@ -90,6 +90,8 @@ var MapView = Backbone.View.extend({
   moveCenter: function(pid){
     //Close overlay first
     NatlPark.Views.SearchIndex.render();
+    //Close showcase if open
+    NatlPark.Views.Showcase.destroyShow();
     var index = pid - 1;
     google.maps.event.trigger(this.markers[index], 'click');
   },

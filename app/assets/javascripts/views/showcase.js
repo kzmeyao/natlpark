@@ -49,7 +49,6 @@ var Showcase = Backbone.View.extend({
 
   initShow: function(photos){
 
-    this.isOn = true;
     $('#wrapper').css('height', .8 * $('#glass').height() + "px");
     var pich = $('#wrapper').height();
     var picw = $('#wrapper').width() - 300;
@@ -85,8 +84,8 @@ var Showcase = Backbone.View.extend({
               '<div class="wave"' + vertcentering + '>' + photo.name +
                 '<br /><small>' + photo.user.fullname.toUpperCase() + '</small>' +
               '</div>' +
-              '<a class="gallery-button">VIEW ON 500PX</a>' +
-              '<a class="gallery-button">BACK TO MAP</a>' +
+              '<a class="gallery-button" href="http://500px.com/photo/' + photo.id +'" target="_blank">VIEW ON 500PX</a>' +
+              '<a class="gallery-button" onclick="NatlPark.Views.Showcase.destroyShow()">BACK TO MAP</a>' +
             '</div>' +
           '</div>'
         );
@@ -104,6 +103,7 @@ var Showcase = Backbone.View.extend({
         hastyPageFlip: true
       });
       this.gallery = carousel;
+      this.isOn = true;
 
       // Load initial data
       for (i=0; i<3; i++) {
@@ -146,6 +146,16 @@ var Showcase = Backbone.View.extend({
         /(^|\s)swipeview-active(\s|$)/.test(className) || (carousel.masterPages[carousel.currentMasterPage].className = !className ? 'swipeview-active' : className + ' swipeview-active');
       });
 
+    }
+  },
+
+  destroyShow: function(){
+    if(this.isOn){
+      this.toggleNavigation();
+      this.gallery.destroy();
+      $('#wrapper').empty();
+      this.isOn = false;
+      this.render("", "");
     }
   },
 
