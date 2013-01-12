@@ -5,7 +5,7 @@ var MapView = Backbone.View.extend({
   infoboxes: [],
   homezoom: 4,
   clickzoom: 9,
-  homelat: 37,
+  homelat: 40,
   infowinsize: 30,
   offset: 90,
 

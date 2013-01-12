@@ -23,7 +23,7 @@ var Showcase = Backbone.View.extend({
   render: function(name, state){
     if(!this.displayed){
       this.term = name + " National Park ";
-      if(name === "Hot Springs" || name === "Badlands" || name === "Grand Canyon"){
+      if(name === "Hot Springs" || name === "Badlands" || name === "Grand Canyon" || name === "Glacier"){
         //search term modified to avoid confusion
         this.term = this.term + " " + state;
       }
