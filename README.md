@@ -9,6 +9,7 @@ Known issues:
 - Place disclaimer message on bottom of showcase for 500px terms
 - Loading effects for showcase
 - IE support?
+- google analytics
 
 Fixed issues:
 
