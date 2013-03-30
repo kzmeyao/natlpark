@@ -1,7 +1,9 @@
+=== DEFUNCT === 
+
 Beautiful America
 A Showcase of U.S. National Parks
 ========
-A little rails project that uses 500px api and google maps api to show high quality photographs for American national parks.
+A little proof-of-concept rails project that uses 500px api and google maps api to show high quality photographs for American national parks.
 
 Known issues:
 
